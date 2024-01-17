@@ -27,13 +27,26 @@ const Register = () => {
     const formik=useFormik({
         initialValues:initialValues,
         validationSchema:validateSchema,
-        onSubmit:(values:any)=>{
+        onSubmit:async (values:any)=>{
             try{
+            const response=await fetch('api/register',{
+              method:"POST",
+              headers:{
+                "Content-Type":"application/json"
+              },
+              body:JSON.stringify(values)
+            })
+            console.log(response)
+            if(response.ok){
+              formik.resetForm()
+            }else{
+              console.log("User Registration Failed")
+            }
             localStorage.setItem("values",JSON.stringify(values.email))
-            formik.resetForm()
-            routing.push("/login")
+            
+            //routing.push("/login")
             }catch(error:any){
-
+              console.log("Error During Registration:",error)
             }
         }
     })
@@ -59,7 +72,7 @@ const Register = () => {
             <label className="text-white" htmlFor="email">Email</label>
             <div className="mt-2">
               <input
-                type="email"
+                type="text"
                 id="email"
                 style={{ width: "500px", height: "35px" }}
                 placeholder="Enter the email"

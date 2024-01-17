@@ -47,7 +47,7 @@ const Login = () => {
             <label className="text-white" htmlFor="email">Email</label>
             <div className="mt-2">
               <input
-                type="email"
+                type="text"
                 id="email"
                 style={{ width: "500px", height: "35px" }}
                 placeholder="Enter the email"
